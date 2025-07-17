@@ -201,13 +201,12 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     target_dtype = None
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
-
-    model.half()
-    print("target_dtype:", target_dtype)
+    target_dtype = next(model.parameters()).dtype
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
-        for key in src_input.keys():
-            if isinstance(src_input[key], torch.Tensor):
-                src_input[key] = src_input[key].to( torch.float16).cuda()
+        if target_dtype != None:
+            for key in src_input.keys():
+                if isinstance(src_input[key], torch.Tensor):
+                    src_input[key] = src_input[key].to(target_dtype).cuda()
 
         if args.task == "CSLR":
             tgt_input['gt_sentence'] = tgt_input['gt_gloss']
@@ -240,15 +239,17 @@ def evaluate(args, data_loader, model, model_without_ddp, phase):
     target_dtype = None
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
+    target_dtype = next(model.parameters()).dtype
 
     with torch.no_grad():
         tgt_pres = []
         tgt_refs = []
  
         for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, 10, header)):
-            for key in src_input.keys():
-                if isinstance(src_input[key], torch.Tensor):
-                    src_input[key] = src_input[key].to(torch.float16).cuda()
+            if target_dtype != None:
+                for key in src_input.keys():
+                    if isinstance(src_input[key], torch.Tensor):
+                        src_input[key] = src_input[key].to(target_dtype).cuda()
             
             if args.task == "CSLR":
                 tgt_input['gt_sentence'] = tgt_input['gt_gloss']
@@ -317,7 +318,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     """
-    output_dir ="./out/finetuning_stage3"
+    output_dir =".zout/finetuning_stage3"
     ckpt_path ="./ckpts/wlasl_pose_only_islr.pth" #"./ckpts/wlasl_rgb_pose_islr.pth"
 
     args.batch_size=1
