@@ -204,7 +204,7 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     else:
         target_dtype = torch.float32
 
-    print("target_dtype:", target_dtype)
+    print("target_dtype_1:", target_dtype)
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
         if target_dtype != None:
             for key in src_input.keys():
@@ -245,8 +245,8 @@ def evaluate(args, data_loader, model, model_without_ddp, phase):
     else:
         target_dtype = torch.float32
 
-    print("target_dtype:", target_dtype)
-        
+    print("target_dtype_2:", target_dtype)
+
     with torch.no_grad():
         tgt_pres = []
         tgt_refs = []
