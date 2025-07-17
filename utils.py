@@ -499,7 +499,7 @@ def get_args_parser():
     parser.add_argument('--dtype',
                         type=str,
                         default='fp16',
-                        choices=['fp16', 'bf16'],
+                        choices=['fp16', 'bf16' ,'fp32'],
                         help='Training data type')
     parser.add_argument('--zero_stage',
                         type=int,
