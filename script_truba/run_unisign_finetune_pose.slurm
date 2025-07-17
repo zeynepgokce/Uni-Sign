@@ -11,6 +11,11 @@
 #SBATCH --output=logs/slurm-%x-%j-%t.out
 #SBATCH --error=logs/slurm-%x-%j-%t.err
 
+
+export MASTER_PORT=$((12000 + $RANDOM % 20000))
+export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
+
+
 source /etc/profile.d/modules.sh
 module purge
 module load lib/cuda/11.8
@@ -26,19 +31,12 @@ export PYTHONPATH=/arf/home/zgokce/miniconda3/envs/open-mmlab/lib/python3.7/site
 
 conda activate Uni-Sign
 
-export MASTER_PORT=$((12000 + $RANDOM % 20000))
-export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
+
 
 # DeepSpeed ile eğitimi başlat
-
-srun fine_tuning.py \
-  --batch-size 4 \
-  --gradient-accumulation-steps 1 \
-  --epochs 20 \
-  --opt AdamW \
-  --lr 3e-4 \
-  --output_dir $output_dir \
-  --finetune $ckpt_path \
+output_dir=./out/stage3_finetuning_pose_only
+ckpt_path= ./ckpts/wlasl_pose_only_islr.pth
+srun fine_tuning.py --batch-size 4 --gradient-accumulation-steps 1 --epochs 20 --opt AdamW --lr 3e-4  --output_dir $output_dir  --finetune $ckpt_path
   --dataset WLASL \
   --task ISLR
 exit
