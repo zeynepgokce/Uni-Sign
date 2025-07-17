@@ -355,7 +355,7 @@ def get_train_ds_config(offload,
     dtype_config = {"enabled": False}
 
     if dtype == "fp16":
-        data_type = "fp16"
+        data_type = "float16"
         dtype_config = {"enabled": True, "loss_scale_window": 100}
     elif dtype == "bf16":
         data_type = "bfloat16"
