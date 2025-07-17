@@ -202,12 +202,12 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
 
+    model.half()
     print("target_dtype:", target_dtype)
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
-        if target_dtype != None:
-            for key in src_input.keys():
-                if isinstance(src_input[key], torch.Tensor):
-                    src_input[key] = src_input[key].to(target_dtype).cuda()
+        for key in src_input.keys():
+            if isinstance(src_input[key], torch.Tensor):
+                src_input[key] = src_input[key].to( torch.float16).cuda()
 
         if args.task == "CSLR":
             tgt_input['gt_sentence'] = tgt_input['gt_gloss']
@@ -246,10 +246,9 @@ def evaluate(args, data_loader, model, model_without_ddp, phase):
         tgt_refs = []
  
         for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, 10, header)):
-            if target_dtype != None:
-                for key in src_input.keys():
-                    if isinstance(src_input[key], torch.Tensor):
-                        src_input[key] = src_input[key].to(target_dtype).cuda()
+            for key in src_input.keys():
+                if isinstance(src_input[key], torch.Tensor):
+                    src_input[key] = src_input[key].to(torch.float16).cuda()
             
             if args.task == "CSLR":
                 tgt_input['gt_sentence'] = tgt_input['gt_gloss']
