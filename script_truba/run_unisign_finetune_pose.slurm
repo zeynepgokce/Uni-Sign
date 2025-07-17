@@ -43,6 +43,5 @@ srun deepspeed ./fine_tuning.py \
   --output_dir $output_dir \
   --finetune $ckpt_path \
   --dataset WLASL \
-  --task ISLR \
-  --dtype fp32
+  --task ISLR
 exit
