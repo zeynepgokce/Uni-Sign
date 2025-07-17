@@ -242,6 +242,10 @@ def evaluate(args, data_loader, model, model_without_ddp, phase):
     target_dtype = None
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
+    else:
+        target_dtype = torch.float32
+
+    print("target_dtype:", target_dtype)
         
     with torch.no_grad():
         tgt_pres = []

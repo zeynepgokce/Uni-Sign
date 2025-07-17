@@ -35,7 +35,7 @@ output_dir=./out/stage3_finetuning_pose_only
 ckpt_path=./ckpts/wlasl_pose_only_islr.pth
 
 srun deepspeed ./fine_tuning.py \
-  --batch-size 4 \
+  --batch-size 1 \
   --gradient-accumulation-steps 1 \
   --epochs 20 \
   --opt AdamW \
