@@ -198,11 +198,9 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     print_freq = 10
     optimizer.zero_grad()
 
-    target_dtype = None
+    target_dtype = args.dtype
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
-    elif model.float16_enabled():
-        target_dtype = torch.float16
 
     print("target_dtype:", target_dtype)
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
