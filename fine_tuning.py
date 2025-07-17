@@ -198,7 +198,7 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     print_freq = 10
     optimizer.zero_grad()
 
-    target_dtype = args.dtype
+    target_dtype = None
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
 
