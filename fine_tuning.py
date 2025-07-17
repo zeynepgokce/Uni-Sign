@@ -201,7 +201,6 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     target_dtype = args.data_type
     if args.dtype == torch.float16:
         model.half()
-
     print("target_dtype_1:", target_dtype)
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
         if target_dtype != None:
