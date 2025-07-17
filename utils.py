@@ -355,10 +355,10 @@ def get_train_ds_config(offload,
     dtype_config = {"enabled": False}
 
     if dtype == "fp16":
-        data_type = "float16"
+        data_type = torch.float16
         dtype_config = {"enabled": True, "loss_scale_window": 100}
     elif dtype == "bf16":
-        data_type = "bfloat16"
+        data_type = torch.bfloat16
         dtype_config = {"enabled": True}
     zero_opt_dict = {
         "stage": stage,
@@ -498,7 +498,7 @@ def get_args_parser():
                         help='Enable ZeRO Offload techniques.')
     parser.add_argument('--dtype',
                         type=str,
-                        default='fp32',
+                        default='fp16',
                         choices=['fp16', 'bf16'],
                         help='Training data type')
     parser.add_argument('--zero_stage',
