@@ -1,4 +1,4 @@
-mt5_path = "./pretrained_weight/mt5-base"
+mt5_path = "google/mt5-base"
 
 # label paths
 train_label_paths = {

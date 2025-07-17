@@ -316,6 +316,24 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser('Uni-Sign scripts', parents=[utils.get_args_parser()])
     args = parser.parse_args()
 
+    """
+    output_dir ="./out/finetuning_stage3"
+    ckpt_path ="./ckpts/wlasl_pose_only_islr.pth" #"./ckpts/wlasl_rgb_pose_islr.pth"
+
+    args.batch_size=1
+    args.gradient_accumulation_steps =1
+    args.epochs=20
+    #args.opt = AdamW
+    args.lr = 3e-4
+    args.output_dir = output_dir
+    args.finetune = ckpt_path
+    args.dataset = "WLASL"
+    args.task= "ISLR"
+    args.max_length = 32
+    args.rgb_support = False
+    """
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
+
     main(args)

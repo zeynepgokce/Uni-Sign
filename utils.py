@@ -517,7 +517,7 @@ def get_args_parser():
                         help='save ckpt per quick_break step')
     
     # RGB branch
-    parser.add_argument('--rgb_support', action='store_true',)
+    parser.add_argument('--rgb_support', action='store_true')#, default=True)
     
     # Pose length
     parser.add_argument("--max_length", default=256, type=int)
