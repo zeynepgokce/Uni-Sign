@@ -498,7 +498,7 @@ def get_args_parser():
                         help='Enable ZeRO Offload techniques.')
     parser.add_argument('--dtype',
                         type=str,
-                        default='bf16',
+                        default='fp16',
                         choices=['fp16', 'bf16'],
                         help='Training data type')
     parser.add_argument('--zero_stage',
