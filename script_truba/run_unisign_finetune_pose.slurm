@@ -31,12 +31,17 @@ export PYTHONPATH=/arf/home/zgokce/miniconda3/envs/open-mmlab/lib/python3.7/site
 
 conda activate Uni-Sign
 
-
-
-# DeepSpeed ile eğitimi başlat
 output_dir=./out/stage3_finetuning_pose_only
 ckpt_path= ./ckpts/wlasl_pose_only_islr.pth
-srun fine_tuning.py --batch-size 4 --gradient-accumulation-steps 1 --epochs 20 --opt AdamW --lr 3e-4  --output_dir $output_dir  --finetune $ckpt_path
+
+srun deepspeed fine_tuning.py \
+  --batch-size 4 \
+  --gradient-accumulation-steps 1 \
+  --epochs 20 \
+  --opt AdamW \
+  --lr 3e-4 \
+  --output_dir $output_dir \
+  --finetune $ckpt_path \
   --dataset WLASL \
   --task ISLR
 exit
