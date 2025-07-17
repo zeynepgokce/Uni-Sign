@@ -27,7 +27,7 @@ nvidia-smi
 wdir=/arf/home/zgokce/code/Uni-Sign
 cd $wdir
 
-export PYTHONPATH=/arf/home/zgokce/miniconda3/envs/open-mmlab/lib/python3.7/site-packages
+
 
 conda activate Uni-Sign
 
