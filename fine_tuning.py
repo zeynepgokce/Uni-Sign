@@ -202,7 +202,7 @@ def train_one_epoch(args, model, data_loader, optimizer, epoch):
     if model.bfloat16_enabled():
         target_dtype = torch.bfloat16
     else:
-        target_dtype = torch.float16
+        target_dtype = torch.float32
 
     print("target_dtype:", target_dtype)
     for step, (src_input, tgt_input) in enumerate(metric_logger.log_every(data_loader, print_freq, header)):
