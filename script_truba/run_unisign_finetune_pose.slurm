@@ -26,9 +26,12 @@ export PYTHONPATH=/arf/home/zgokce/miniconda3/envs/open-mmlab/lib/python3.7/site
 
 conda activate Uni-Sign
 
+export MASTER_PORT=$((12000 + $RANDOM % 20000))
+export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
 
 # DeepSpeed ile eğitimi başlat
-deepspeed --include localhost:0,1,2,3 --master_port 29511 fine_tuning.py \
+
+srun fine_tuning.py \
   --batch-size 4 \
   --gradient-accumulation-steps 1 \
   --epochs 20 \
