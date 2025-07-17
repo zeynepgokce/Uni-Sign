@@ -503,7 +503,7 @@ def get_args_parser():
                         help='Training data type')
     parser.add_argument('--zero_stage',
                         type=int,
-                        default=1,
+                        default=2,
                         help='ZeRO optimization stage for Actor model (and clones).')
     ## low precision
     parser.add_argument('--compute_fp32_loss',
