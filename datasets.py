@@ -230,7 +230,8 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     sampled_indices = np.concatenate(all_indices)
     sampled_indices = np.unique(sampled_indices)
     sampled_indices_real = tmp[sampled_indices]
-    print("sampled_indices:", sampled_indices + " sampled_indices_real:", sampled_indices_real)
+    print("sampled_indices:", sampled_indices )
+    print(" sampled_indices_real:", sampled_indices_real)
 
     sampled_indices_real = sampled_indices_real[sampled_indices_real < len(tmp)]
     # load image sample
