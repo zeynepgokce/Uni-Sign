@@ -231,7 +231,9 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     sampled_indices = np.concatenate(all_indices)
     print("sampled_indices:" ,sampled_indices)
     sampled_indices = np.unique(sampled_indices)
+    print("sampled_indices:", sampled_indices)
     sampled_indices_real = tmp[sampled_indices]
+    print("sampled_indices:", sampled_indices_real)
 
     # load image sample
     imgs = load_video_support_rgb(full_path, sampled_indices_real)
