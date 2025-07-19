@@ -323,11 +323,11 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
 
 # use split rgb video for save time
 def load_video_support_rgb(path, tmp):
-    print("path: ", path)
-    print("tmp: ", tmp)
+
     vr = VideoReader(path, num_threads=1, ctx=cpu(0))
     max_index = len(vr) - 1
-    print("max index:", max_index)
+
+    print("path: "+  str(path )+ " tmp: "+ str( tmp)+ " max index:"+  str(max_index))
     vr.seek(0)
     buffer = vr.get_batch(tmp).asnumpy()
     batch_image = buffer
