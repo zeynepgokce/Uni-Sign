@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -p barbun-cuda
 #SBATCH -A zgokce
-#SBATCH -J unisign_1gpu
-#SBATCH --gres=gpu:2                # Tek node'da 1 GPU
+#SBATCH -J unisign
+#SBATCH --gres=gpu:2                # Tek node'da 2 GPU
 #SBATCH --nodes 1
 #SBATCH --ntasks 2
 #SBATCH --ntasks-per-node=2
@@ -11,10 +11,19 @@
 #SBATCH --output=logs/slurm-%x-%j-%t.out
 #SBATCH --error=logs/slurm-%x-%j-%t.err
 
-export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
-export MASTER_PORT=$((12000 + $RANDOM % 20000))
-export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
+#export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
 
+
+# CUDA bellek yönetimi için fragmentasyonu azalt
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
+
+# Dağıtık eğitim için adres ve port
+echo "SLURM_JOB_NODELIST: $SLURM_JOB_NODELIST"
+echo "Resolved master address:"
+scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1
+
+export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
+export MASTER_PORT=$((12000 + RANDOM % 20000))
 
 source /etc/profile.d/modules.sh
 module purge
