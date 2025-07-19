@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p barbun-cuda
 #SBATCH -A zgokce
-#SBATCH -J unisign
+#SBATCH -J unisign_pose_only
 #SBATCH --gres=gpu:2                # Tek node'da 2 GPU
 #SBATCH --nodes 1
 #SBATCH --ntasks 2
