@@ -53,6 +53,6 @@ deepspeed ./fine_tuning.py \
   --output_dir $output_dir \
   --finetune $ckpt_path \
   --dataset WLASL \
-  --task ISLR
+  --task ISLR \
   --rgb_support
 exit
