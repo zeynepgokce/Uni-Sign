@@ -157,7 +157,7 @@ def bbox_4hands(left_keypoints, right_keypoints, hw):
 
 def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     support_rgb_dict = {}
-    
+    print("confs:" ,confs)
     confs = np.array(confs)
     skeletons = np.array(skeletons) 
 
