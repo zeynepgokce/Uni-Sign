@@ -2,10 +2,10 @@
 #SBATCH -p barbun-cuda
 #SBATCH -A zgokce
 #SBATCH -J unisign
-#SBATCH --gres=gpu:1                # Tek node'da 2 GPU
+#SBATCH --gres=gpu:2                # Tek node'da 2 GPU
 #SBATCH --nodes 1
-#SBATCH --ntasks 1
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks 2
+#SBATCH --ntasks-per-node=2
 #SBATCH --cpus-per-task=20
 #SBATCH --time=03-00:00
 #SBATCH --output=logs/slurm-%x-%j-%t.out
@@ -43,7 +43,7 @@ conda activate Uni-Sign
 output_dir=./out/stage3_finetuning_pose_only
 ckpt_path=./ckpts/wlasl_pose_only_islr.pth
 
-srun deepspeed ./fine_tuning.py \
+deepspeed ./fine_tuning.py \
   --batch-size 1 \
   --gradient-accumulation-steps 4 \
   --epochs 20 \
