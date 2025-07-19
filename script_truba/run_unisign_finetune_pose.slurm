@@ -23,7 +23,7 @@ echo "Resolved master address:"
 scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1
 
 export MASTER_ADDR=$(scontrol show hostnames "$SLURM_JOB_NODELIST" | head -n 1)
-export MASTER_PORT=$((12000 + RANDOM % 20000))
+export MASTER_PORT=$((10000 + RANDOM % 20000))
 export NCCL_DEBUG=INFO
 
 source /etc/profile.d/modules.sh
