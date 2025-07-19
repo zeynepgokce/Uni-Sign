@@ -6,12 +6,12 @@
 #SBATCH --nodes 1
 #SBATCH --ntasks 2
 #SBATCH --ntasks-per-node=2
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=20
 #SBATCH --time=03-00:00
 #SBATCH --output=logs/slurm-%x-%j-%t.out
 #SBATCH --error=logs/slurm-%x-%j-%t.err
 
-
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
 export MASTER_PORT=$((12000 + $RANDOM % 20000))
 export MASTER_ADDR=$(srun --ntasks=1 hostname 2>&1 | tail -n1)
 
