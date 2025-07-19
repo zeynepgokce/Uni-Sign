@@ -520,7 +520,7 @@ def get_args_parser():
     parser.add_argument('--rgb_support', action='store_true')#, default=True)
     
     # Pose length
-    parser.add_argument("--max_length", default=256, type=int)
+    parser.add_argument("--max_length", default=16, type=int)
     
     # select dataset
     parser.add_argument("--dataset", default="CSL_Daily", choices=['CSL_News', "CSL_Daily", "WLASL"])
