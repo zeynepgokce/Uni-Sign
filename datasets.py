@@ -465,6 +465,7 @@ class S2T_Dataset(Base_Dataset):
             duration = len(pose['scores'])
             start = 0
         print("start: ", start)
+        print("duration: ",duration)
         if duration > self.max_length:
             tmp = sorted(random.sample(range(duration), k=self.max_length))
             print("1.tmp: ", tmp)
