@@ -452,44 +452,44 @@ class S2T_Dataset(Base_Dataset):
 
         return name_sample,pose_sample,text, gloss, support_rgb_dict
     
-    def load_pose(self, path):
-        pose = pickle.load(open(os.path.join(self.pose_dir, path.replace(".mp4", '.pkl')), 'rb'))
-            
-        if 'start' in pose.keys():
-            assert pose['start'] < pose['end']
-            duration = pose['end'] - pose['start']
-            start = pose['start']
-        else:
-            duration = len(pose['scores'])
-            start = 0
-        if duration > self.max_length:
-            tmp = sorted(random.sample(range(duration), k=self.max_length))
-        else:
-            tmp = list(range(duration))
-
-        
-        tmp = np.array(tmp) + start
-            
-        skeletons = pose['keypoints']
-        confs = pose['scores']
-        skeletons_tmp = []
-        confs_tmp = []
-        for index in tmp:
-            skeletons_tmp.append(skeletons[index])
-            confs_tmp.append(confs[index])
-
-        skeletons = skeletons_tmp
-        confs = confs_tmp
-    
-        kps_with_scores = load_part_kp(skeletons, confs, force_ok=True)
-
-        support_rgb_dict = {}
-        if self.rgb_support:
-            full_path = os.path.join(self.rgb_dir, path)
-            print(full_path)
-            support_rgb_dict = load_support_rgb_dict(tmp, skeletons, confs, full_path, self.data_transform)
-            
-        return kps_with_scores, support_rgb_dict
+    def load_pose(self, path):                                                                                     
+        pose = pickle.load(open(os.path.join(self.pose_dir, path.replace(".mp4", '.pkl')), 'rb'))                  
+                                                                                                                   
+        if 'start' in pose.keys():                                                                                 
+            assert pose['start'] < pose['end']                                                                     
+            duration = pose['end'] - pose['start']                                                                 
+            start = pose['start']                                                                                  
+        else:                                                                                                      
+            duration = len(pose['scores'])                                                                         
+            start = 0                                                                                              
+        if duration > self.max_length:                                                                             
+            tmp = sorted(random.sample(range(duration), k=self.max_length))                                        
+        else:                                                                                                      
+            tmp = list(range(duration))                                                                            
+                                                                                                               
+                                                                                                                   
+        tmp = np.array(tmp) + start                                                                                
+                                                                                                                   
+        skeletons = pose['keypoints']                                                                              
+        confs = pose['scores']                                                                                     
+        skeletons_tmp = []                                                                                         
+        confs_tmp = []                                                                                             
+        for index in tmp:                                                                                          
+            skeletons_tmp.append(skeletons[index])                                                                 
+            confs_tmp.append(confs[index])                                                                         
+                                                                                                               
+        skeletons = skeletons_tmp                                                                                  
+        confs = confs_tmp                                                                                          
+                                                                                                                   
+        kps_with_scores = load_part_kp(skeletons, confs, force_ok=True)                                            
+                                                                                                               
+        support_rgb_dict = {}                                                                                      
+        if self.rgb_support:                                                                                       
+            full_path = os.path.join(self.rgb_dir, path)                                                           
+            print(full_path)                                                                                       
+            support_rgb_dict = load_support_rgb_dict(tmp, skeletons, confs, full_path, self.data_transform)        
+                                                                                                                   
+        return kps_with_scores, support_rgb_dict                                                                   
 
     def __str__(self):
         return f'#total {len(self)}'
