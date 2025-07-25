@@ -213,11 +213,10 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     image_size = 112
     all_indices = []
     if not left_sampled_indices is None:
-        print("left_sampled_indices: ",left_sampled_indices)
         all_indices.append(left_sampled_indices)
     if not right_sampled_indices is None:
         all_indices.append(right_sampled_indices)
-        print("right_sampled_indices: ", right_sampled_indices)
+
     if len(all_indices) == 0:
         support_rgb_dict['left_sampled_indices'] = torch.tensor([-1])
         support_rgb_dict['left_hands'] = torch.zeros(1, 3, image_size, image_size)
@@ -232,8 +231,7 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     sampled_indices = np.concatenate(all_indices)
     sampled_indices = np.unique(sampled_indices)
     sampled_indices_real = tmp[sampled_indices]
-    print("sampled_indices:", sampled_indices )
-    print(" sampled_indices_real:", sampled_indices_real)
+
 
     # load image sample
     imgs = load_video_support_rgb(full_path, sampled_indices_real)
@@ -464,14 +462,11 @@ class S2T_Dataset(Base_Dataset):
         else:
             duration = len(pose['scores'])
             start = 0
-        print("start: ", start)
-        print("duration: ",duration)
         if duration > self.max_length:
             tmp = sorted(random.sample(range(duration), k=self.max_length))
-            print("1.tmp: ", tmp)
         else:
             tmp = list(range(duration))
-            print("2.tmp: ", tmp)
+
         
         tmp = np.array(tmp) + start
             

@@ -51,8 +51,8 @@ def process_video(video_path, tgt_dir, wholebody, max_workers=16, overwrite=Fals
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--src_dir", default="/home/zeynep/Thesis/datasets/wlasl100/train", help="video dir path")
-    parser.add_argument("--tgt_dir", default="/home/zeynep/Thesis/code/Uni-Sign/pose_extraction/train.pkl", help="pose dir path")
+    parser.add_argument("--src_dir", default="/home/zeynep/Thesis/datasets/wlasl100_videos_64x64/train", help="video dir path")
+    parser.add_argument("--tgt_dir", default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_64x64/pose_format/train", help="pose dir path")
 
     parser.add_argument("--device", default="cuda", choices=["cpu", "cuda", "mps"])
     parser.add_argument("--backend", default="onnxruntime", choices=["opencv", "onnxruntime", "openvino"])
