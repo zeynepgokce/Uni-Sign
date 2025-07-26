@@ -159,8 +159,9 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     support_rgb_dict = {}
     confs = np.array(confs)
     skeletons = np.array(skeletons) 
-    print("full_path:" , full_path)
+
     # sample index of low scores
+    print("full_path:" , full_path + "  conf size: ", confs.shape)
     left_confs_filter = confs[:,0,91:112].mean(-1)
     left_confs_filter_indices = np.where(left_confs_filter > 0.3)[0]
 
