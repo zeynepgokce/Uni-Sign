@@ -7,7 +7,7 @@ import numpy as np
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 from rtmlib import Wholebody, draw_skeleton
-
+bad_videos = []
 def process_frame(frame, wholebody):
     frame = np.uint8(frame)
     keypoints, scores = wholebody(frame)
@@ -45,23 +45,32 @@ def process_video(video_path, tgt_dir, wholebody, max_workers=16, overwrite=Fals
         data['keypoints'].append(keypoints / np.array(w_h)[None, None])
         data['scores'].append(scores)
 
+        if scores.shape != (1,133):
+            print(video_path)
+            bad_videos.append((video_path, scores.shape))
+
     with open(output_path, 'wb') as file:
         pickle.dump(data, file)
 
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--src_dir", default="/home/zeynep/Thesis/datasets/wlasl100/train", help="video dir path")
-    parser.add_argument("--tgt_dir", default="/home/zeynep/Thesis/code/Uni-Sign/pose_extraction/train.pkl", help="pose dir path")
+    parser.add_argument("--src_dir",
+                        default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_64x64/rgb_format/test",
+                        help="video dir path")
+    parser.add_argument("--tgt_dir",
+                        default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_64x64/pose_format/test",
+                        help="pose dir path")
 
     parser.add_argument("--device", default="cuda", choices=["cpu", "cuda", "mps"])
     parser.add_argument("--backend", default="onnxruntime", choices=["opencv", "onnxruntime", "openvino"])
     parser.add_argument("--openpose_skeleton", action="store_true", help="use openpose format")
-    parser.add_argument("--mode", default="lightweight", choices=["performance", "lightweight", "balanced"],)
+    parser.add_argument("--mode", default="lightweight", choices=["performance", "lightweight", "balanced"])
 
     parser.add_argument("--video_extensions", nargs='+', default=["mp4"])
     parser.add_argument("--max_workers", type=int, default=16)
     parser.add_argument("--overwrite", action="store_true")
+
 
     args = parser.parse_args()
 
@@ -88,6 +97,10 @@ def main():
             max_workers=args.max_workers,
             overwrite=args.overwrite
         )
+    with open("./bad_pose_files.txt", "w") as f:
+        for path, shape in bad_videos:
+            f.write(f"{path}\t{shape}\n")
+
 
 
 if __name__ == "__main__":

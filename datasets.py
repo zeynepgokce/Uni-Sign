@@ -161,7 +161,7 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
     skeletons = np.array(skeletons) 
 
     # sample index of low scores
-    print("full_path:" , full_path + "  conf size: ", confs.shape)
+    #print("full_path:" , full_path + "  conf size: ", confs.shape)
     left_confs_filter = confs[:,0,91:112].mean(-1)
     left_confs_filter_indices = np.where(left_confs_filter > 0.3)[0]
 
@@ -487,7 +487,7 @@ class S2T_Dataset(Base_Dataset):
         support_rgb_dict = {}                                                                                      
         if self.rgb_support:                                                                                       
             full_path = os.path.join(self.rgb_dir, path)                                                           
-            print(full_path)                                                                                       
+            #print(full_path)
             support_rgb_dict = load_support_rgb_dict(tmp, skeletons, confs, full_path, self.data_transform)        
                                                                                                                    
         return kps_with_scores, support_rgb_dict                                                                   
