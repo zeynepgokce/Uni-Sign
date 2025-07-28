@@ -312,13 +312,14 @@ def load_support_rgb_dict(tmp, skeletons, confs, full_path, data_transform):
         right_sampled_indices = np.array([-1])
 
     # get index, images and keypoints priors
-    support_rgb_dict['left_sampled_indices'] = torch.tensor(left_sampled_indices)
+    support_rgb_dict['left_sampled_indices'] = torch.as_tensor(left_sampled_indices).clone().detach()
     support_rgb_dict['left_hands'] = left_hands
-    support_rgb_dict['left_skeletons_norm'] = torch.tensor(left_skeletons_norm)
+    support_rgb_dict['left_skeletons_norm'] = torch.as_tensor(left_skeletons_norm).clone().detach()
+
     
-    support_rgb_dict['right_sampled_indices'] = torch.tensor(right_sampled_indices)
+    support_rgb_dict['right_sampled_indices'] = torch.as_tensor(right_sampled_indices).clone().detach()
     support_rgb_dict['right_hands'] = right_hands
-    support_rgb_dict['right_skeletons_norm'] = torch.tensor(right_skeletons_norm)
+    support_rgb_dict['right_skeletons_norm'] = torch.as_tensor(right_skeletons_norm).clone().detach()
 
     return support_rgb_dict
 
@@ -329,7 +330,7 @@ def load_video_support_rgb(path, tmp):
     vr = VideoReader(path, num_threads=1, ctx=cpu(0))
     max_index = len(vr) - 1
 
-    print("path: "+  str(path )+ " tmp: "+ str( tmp)+ " max index:"+  str(max_index))
+    #print("path: "+  str(path )+ " tmp: "+ str( tmp)+ " max index:"+  str(max_index))
     vr.seek(0)
     buffer = vr.get_batch(tmp).asnumpy()
     batch_image = buffer
