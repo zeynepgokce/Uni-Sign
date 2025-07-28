@@ -42,7 +42,7 @@ cd $wdir
 conda activate Uni-Sign
 
 output_dir=/arf/scratch/zgokce/output/unisign/stage3_finetuning_rgb_pose
-ckpt_path= ./ckpts/csl_daily_rgb_pose_slt.pth
+ckpt_path=./ckpts/csl_daily_rgb_pose_slt.pth
 
 deepspeed ./fine_tuning.py \
   --batch-size 4 \
