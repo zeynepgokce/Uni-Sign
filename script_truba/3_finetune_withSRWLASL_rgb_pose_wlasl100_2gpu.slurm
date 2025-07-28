@@ -41,13 +41,13 @@ cd $wdir
 
 conda activate Uni-Sign
 
-output_dir=/arf/scratch/zgokce/output/unisign/stage3_finetuning_rgb_pose
-ckpt_path=./ckpts/csl_daily_rgb_pose_slt.pth
+output_dir=/arf/scratch/zgokce/output/unisign/stage3_finetuning_rgb_pose_withWLASL_weiight
+ckpt_path=./ckpts/wlasl_rgb_pose_islr.pth
 
 deepspeed ./fine_tuning.py \
   --batch-size 4 \
   --gradient-accumulation-steps 4 \
-  --epochs 20 \
+  --epochs 50 \
   --opt AdamW \
   --lr 3e-4 \
   --output_dir $output_dir \
