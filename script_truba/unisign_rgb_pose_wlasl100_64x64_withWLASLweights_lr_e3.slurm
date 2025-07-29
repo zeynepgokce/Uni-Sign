@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p barbun-cuda
 #SBATCH -A zgokce
-#SBATCH -J unisign_rgb_pose_wlasl100_64x64
+#SBATCH -J unisign_rgb_pose_wlasl100_64x64_withWLASLweights_lr_1e3
 #SBATCH --gres=gpu:2               # Tek node'da 2 GPU
 #SBATCH --nodes 1
 #SBATCH --ntasks 2
@@ -41,15 +41,15 @@ cd $wdir
 
 conda activate Uni-Sign
 
-output_dir=/arf/scratch/zgokce/output/unisign/stage3_finetuning_rgb_pose_withSLT_weight_LR3
-ckpt_path=./ckpts/csl_daily_rgb_pose_slt.pth
+output_dir=/arf/scratch/zgokce/outputs/unisign/unisign_rgb_pose_wlasl100_64x64_withWLASLweights_lr_1e3
+ckpt_path=./ckpts/wlasl_rgb_pose_islr.pth
 
 deepspeed ./fine_tuning.py \
   --batch-size 4 \
   --gradient-accumulation-steps 4 \
   --epochs 50 \
   --opt AdamW \
-  --lr e-3 \
+  --lr 1e-3 \
   --output_dir $output_dir \
   --finetune $ckpt_path \
   --dataset WLASL \
