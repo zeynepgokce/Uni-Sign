@@ -41,7 +41,7 @@ cd $wdir
 
 conda activate Uni-Sign
 
-output_dir=/arf/scratch/zgokce/outputs/unisign/%j
+output_dir=/arf/scratch/zgokce/outputs/unisign/unisign_rgb_pose_wlasl100_64x64_withSLTweights_lr_3e4
 ckpt_path=./ckpts/csl_daily_rgb_pose_slt.pth
 
 deepspeed ./fine_tuning.py \

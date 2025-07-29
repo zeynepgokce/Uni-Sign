@@ -41,7 +41,7 @@ cd $wdir
 
 conda activate Uni-Sign
 
-output_dir=/arf/scratch/zgokce/outputs/unisign_%j
+output_dir=/arf/scratch/zgokce/outputs/unisign/unisign_rgb_pose_wlasl100_64x64_withSLTweights_lr_e3
 ckpt_path=./ckpts/csl_daily_rgb_pose_slt.pth
 
 deepspeed ./fine_tuning.py \
@@ -49,7 +49,7 @@ deepspeed ./fine_tuning.py \
   --gradient-accumulation-steps 4 \
   --epochs 50 \
   --opt AdamW \
-  --lr e-3 \
+  --lr 1e-3 \
   --output_dir $output_dir \
   --finetune $ckpt_path \
   --dataset WLASL \
