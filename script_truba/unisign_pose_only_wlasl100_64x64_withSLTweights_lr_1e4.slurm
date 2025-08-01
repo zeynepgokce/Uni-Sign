@@ -42,7 +42,7 @@ cd $wdir
 conda activate Uni-Sign
 
 output_dir=/arf/scratch/zgokce/outputs/unisign/unisign_pose_only_wlasl100_64x64_withSLTweights_lr_1e4
-ckpt_path=./ckpts/wlasl_pose_only_islr.pth
+ckpt_path=./ckpts/csl_daily_pose_only_slt.pth
 
 deepspeed ./fine_tuning.py \
   --batch-size 4 \
