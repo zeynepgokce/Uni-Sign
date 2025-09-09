@@ -56,10 +56,10 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--src_dir",
-                        default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_64x64/rgb_format/test",
+                        default="/home/zeynep/Thesis/datasets/wlasl100_videos_256x256/test",
                         help="video dir path")
     parser.add_argument("--tgt_dir",
-                        default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_64x64/pose_format/test",
+                        default="/home/zeynep/Thesis/code/Uni-Sign/dataset/WLASL100_256x256/pose_format/test",
                         help="pose dir path")
 
     parser.add_argument("--device", default="cuda", choices=["cpu", "cuda", "mps"])
